@@ -15,8 +15,10 @@ def create_board():
         board.append([0]*COLS)
 
 def print_board():
-    for row in board:
-        print(row)
+    for row in range(ROWS):
+        print(" ")
+        for col in range(COLS):
+            print(board[row][col],end=' ')
 
 create_board()
 print_board()
