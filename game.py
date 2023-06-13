@@ -36,11 +36,28 @@ def add_token(board, col, token):
                 break
 
 def check_win(board, simbolo):
-    points = 0
-    for col in range(COLS):
+    # CHECK HORIZONTAL WIN
+    for col in range(COLS -3):
         for row in range(ROWS):
-            if board[col][row] == simbolo:
-                
+            if board[row][col] == simbolo and board[row][col+1] == simbolo and board[row][col+2] == simbolo and board[row][col+3] == simbolo:
+                return True
+    #  CHECK VERTICAL WIN       
+    for col in range(COLS):
+        for row in range(ROWS-3):
+            if board[row][col] == simbolo and board[row+1][col] == simbolo and board[row+2][col] == simbolo and board[row+3][col] == simbolo:
+                return True
+            
+    # CHECK DIAGONAL DOWN
+    for col in range(COLS):
+        for row in range(3, ROWS):
+            if board[row][col] == simbolo and board[row-1][col+1] == simbolo and board[row-2][col+2] == simbolo and board[row-3][col+3] == simbolo:
+                return True
+    
+    # CHECK DIAGONAL UP
+    for col in range(COLS):
+            for row in range(ROWS - 3):
+                if board[row][col] == simbolo and board[row+1][col+1] == simbolo and board[row+2][col+2] == simbolo and board[row+3][col+3] == simbolo:
+                    return True
 create_board()
 print_board()
 
@@ -50,10 +67,16 @@ while winner == False:
         J1 = int(input('\nSelecione uma coluna (0-6): '))
         turn += 1
         add_token(board, J1, 'J1')
+        if check_win(board, simbolo_j1):
+            print('Jogador 1 venceu!')
+            winner = True
         print_board()
     else:
         print('\nVez do jogador 2')
         J2 = int(input('\nSelecione uma coluna (0-6): '))
         turn +=1
         add_token(board, J2, 'J2')
+        if check_win(board, simbolo_j2):
+            print('Jogador 2 venceu!')
+            winner = True
         print_board()
