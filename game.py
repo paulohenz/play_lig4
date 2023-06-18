@@ -1,6 +1,7 @@
 import sys
 import random
 import math
+import pygame
 
 # 6 LINHAS
 # 7 COLUNAS
@@ -34,8 +35,14 @@ def add_token(board, col, token):
             if board[row][col] == empty_token:
                 if token == "J1":
                     board[row][col] = J1_token
-                elif token == "J2":
-                    board[row][col] = J2_token
+                elif token == "J2" or token == "Computador":
+                    if jogadores == 1:
+                        token == "J2"
+                        board[row][col] = J2_token
+                    else:
+                        jogadores == 2
+                        token == "Computador"
+                        board[row][col] = J2_token
                 break
 
 
@@ -83,14 +90,28 @@ def check_win(board, token):
             ):
                 return True
 
+while True:
+    jogadores = int(input("Escolha uma opção: [1 - Humano/Humano 2 - Humano/Computador] "))
+    if jogadores == 1 or jogadores == 2:
+        break
+    else:
+        print("Opção Inválida! Escolha 1 ou 2 ")
+
 
 create_board()
 print_board()
 
+
+
 while winner == False:
     if turn % 2 == 0:
         print("\nVez do jogador 1")
-        J1 = int(input("\nSelecione uma coluna (0-6): "))
+        while True:
+            J1 = int(input("\nSelecione uma coluna (0-6): "))
+            if J1 == 0 or J1 == 1 or J1 == 2 or J1 == 3 or J1 == 4 or J1 == 5 or J1 == 6:
+                break
+            else:
+                print("Opção Inválida! Escolha um número de 0 a 6")
         turn += 1
         add_token(board, J1, "J1")
         if check_win(board, J1_token):
@@ -98,11 +119,27 @@ while winner == False:
             winner = True
         print_board()
     else:
-        print("\nVez do jogador 2")
-        J2 = int(input("\nSelecione uma coluna (0-6): "))
-        turn += 1
-        add_token(board, J2, "J2")
+        if jogadores == 1:
+            print("\nVez do jogador 2")
+            while True:
+                J2 = int(input("\nSelecione uma coluna (0-6): "))
+                if J2 == 0 or J2 == 1 or J2 == 2 or J2 == 3 or J2 == 4 or J2 == 5 or J2 == 6:
+                    break
+                else:
+                    print("Opção Inválida! Escolha um número de 0 a 6")
+            turn += 1
+            add_token(board, J2, "J2")
+        elif jogadores == 2:
+            print("\nVez do Computador")
+            J2 = random.randint(0,6)
+            print(f"\nO Computador selecionou a coluna {J2}")
+            turn += 1
+            add_token(board, J2, "J2")
         if check_win(board, J2_token):
-            print("Jogador 2 venceu!")
-            winner = True
+            if jogadores == 1:
+                print("Jogador 2 venceu!")
+                winner = True
+            elif jogadores == 2:
+                print("Computador Venceu!")
+                winner = True
         print_board()
