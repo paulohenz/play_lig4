@@ -108,8 +108,11 @@ while winner == False:
         print("\nVez do jogador 1")
         while True:
             J1 = int(input("\nSelecione uma coluna (0-6): "))
-            if J1 == 0 or J1 == 1 or J1 == 2 or J1 == 3 or J1 == 4 or J1 == 5 or J1 == 6:
-                break
+            if J1 >= 0 and J1 < COLS:
+                if board[ROWS - 1][J1] == empty_token:
+                        break
+                else:
+                        print("Coluna cheia! Jogue Novamente ")
             else:
                 print("Opção Inválida! Escolha um número de 0 a 6")
         turn += 1
@@ -123,8 +126,11 @@ while winner == False:
             print("\nVez do jogador 2")
             while True:
                 J2 = int(input("\nSelecione uma coluna (0-6): "))
-                if J2 == 0 or J2 == 1 or J2 == 2 or J2 == 3 or J2 == 4 or J2 == 5 or J2 == 6:
-                    break
+                if J2 >= 0 and J2 < COLS:
+                    if board[ROWS - 1][J2] == empty_token:
+                        break
+                    else:
+                        print("Coluna cheia! Jogue Novamente ")
                 else:
                     print("Opção Inválida! Escolha um número de 0 a 6")
             turn += 1
